@@ -2,29 +2,27 @@ package web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.DAO.UsersDAO;
-import web.DAO.UsersDAOIml;
 import web.model.User;
+import web.service.UserService;
 
 @Controller
 @RequestMapping("/users")
 public class UsersController {
     @Autowired
-    private UsersDAO userDAO;
+    private UserService userService;
 
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("users", userDAO.listOfUser());
+        model.addAttribute("users", userService.listOfUser());
         return "index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userDAO.getUserById(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "show";
     }
 
@@ -36,7 +34,7 @@ public class UsersController {
 
     @PostMapping()
     public String create(@ModelAttribute("user") User user) {
-        userDAO.addUser(user);
+        userService.addUser(user);
         return "redirect:/users";
     }
 
