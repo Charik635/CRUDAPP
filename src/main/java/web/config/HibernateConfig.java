@@ -12,6 +12,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import web.model.User;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -33,6 +34,7 @@ public class HibernateConfig {
         dataSource.setUsername(env.getProperty("db.username"));
         dataSource.setPassword(env.getProperty("db.password"));
         return dataSource;
+
     }
 
 

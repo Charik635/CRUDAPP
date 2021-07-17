@@ -1,12 +1,9 @@
 package web.DAO;
 
-
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -14,7 +11,8 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 
-@Component
+@Service
+
 public class UsersDAOIml  implements UsersDAO {
 
     private  EntityManagerFactory entityManagerFactory;
@@ -27,12 +25,13 @@ public class UsersDAOIml  implements UsersDAO {
 
 
     @Override
+
     public void addUser(User user) {
      EntityManager entityManager =  entityManagerFactory.createEntityManager();
      EntityTransaction transaction =  entityManager.getTransaction();
      transaction.begin();
      entityManager.persist(user);
-     transaction.commit();
+    transaction.commit();
      entityManager.close();
     }
 
@@ -54,7 +53,6 @@ public class UsersDAOIml  implements UsersDAO {
     }
 
     @Override
-
     public User getUserById(int id) {
         EntityManager entityManager =  entityManagerFactory.createEntityManager();
         EntityTransaction transaction =  entityManager.getTransaction();
