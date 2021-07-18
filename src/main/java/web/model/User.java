@@ -23,10 +23,11 @@ public class User {
     @Column(name = "age")
     @Min(value = 0, message = "Возраст должен быть не менее 0")
     private int age;
-    @Column(name="email")
+    @Column(name = "email")
     @Email(message = "Email не верный")
     @NotEmpty(message = "Поле не может быть пустым")
     private String email;
+
     public int getId() {
         return id;
     }

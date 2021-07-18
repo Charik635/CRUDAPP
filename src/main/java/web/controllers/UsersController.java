@@ -38,25 +38,28 @@ public class UsersController {
 
     @PostMapping()
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "new";
         }
         userService.addUser(user);
         return "redirect:/users";
     }
+
     @GetMapping("/{id}/edit")
-    public String edit(Model model,@PathVariable("id") int id){
-        model.addAttribute("user",userService.getUserById(id));
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("user", userService.getUserById(id));
         return "edit";
     }
+
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user")@Valid User user,BindingResult bindingResult,@PathVariable("id") int id) {
-        if(bindingResult.hasErrors()) {
+    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
             return "edit";
         }
-        userService.updateUser(id,user);
+        userService.updateUser(id, user);
         return "redirect:/users";
     }
+
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.removeUser(id);

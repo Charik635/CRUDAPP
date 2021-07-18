@@ -30,10 +30,9 @@ public class UsersDAOIml implements UserDAO {
 
 
     @Override
-
     public void removeUser(int id) {
-        String sql = "DELETE FROM users WHERE id = "+id;
-       entityManager.createNativeQuery(sql).executeUpdate();
+        String sql = "DELETE FROM users WHERE id = " + id;
+        entityManager.createNativeQuery(sql).executeUpdate();
 
     }
 
