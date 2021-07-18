@@ -6,10 +6,10 @@ import web.model.User;
 
 import java.util.List;
 
-public interface UsersDAO {
+public interface UserDAO {
     void addUser(User user);
 
-    void updateUser(User user);
+    void updateUser(int id, User updatedUser);
 
     void removeUser(int id);
 

@@ -1,9 +1,6 @@
 package web.DAO;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
 import javax.persistence.*;
@@ -11,7 +8,7 @@ import java.util.List;
 
 
 @Repository
-public class UsersDAOIml implements UsersDAO {
+public class UsersDAOIml implements UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -23,14 +20,19 @@ public class UsersDAOIml implements UsersDAO {
     }
 
     @Override
-
-    public void updateUser(User user) {
+    public void updateUser(int id, User updatedUser) {
+        User userToBeUpdated = getUserById(id);
+        userToBeUpdated.setName(updatedUser.getName());
+        userToBeUpdated.setSurName(updatedUser.getSurName());
     }
 
+
     @Override
+
     public void removeUser(int id) {
-        TypedQuery<User> q = entityManager.createQuery("DELETE  from User u where u.id = :id", User.class);
-        q.setParameter("id", id);
+        String sql = "DELETE FROM users WHERE id = "+id;
+       entityManager.createNativeQuery(sql).executeUpdate();
+
     }
 
     @Override

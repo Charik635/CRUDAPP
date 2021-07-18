@@ -1,16 +1,17 @@
 package web.service;
 import org.springframework.stereotype.Service;
-import web.DAO.UsersDAO;
+import web.DAO.UserDAO;
 import web.model.User;
 
 import javax.transaction.Transactional;
 import java.util.List;
 @Transactional
-@Service
-public class UserServiceIml implements UserService{
-    private UsersDAO usersDAO;
 
-    public UserServiceIml(UsersDAO usersDAO) {
+@Service
+public class UserServiceIml implements UserService {
+    private UserDAO usersDAO;
+
+    public UserServiceIml(UserDAO usersDAO) {
         this.usersDAO = usersDAO;
     }
 
@@ -20,8 +21,8 @@ public class UserServiceIml implements UserService{
     }
 
     @Override
-    public void updateUser(User user) {
-        usersDAO.updateUser(user);
+    public void updateUser(int id, User updatedUser) {
+        usersDAO.updateUser(id,updatedUser);
     }
 
     @Override

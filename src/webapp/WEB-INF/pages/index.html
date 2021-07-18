@@ -10,6 +10,7 @@
     <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getId()}">Id</a>
     <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">Имя</a>
     <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getSurName()}">Фамилия</a>
+    <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Редактировать</a>
 </div>
     <a th:href="@{/users/new}">Создать нового пользователя</a>
 </body>

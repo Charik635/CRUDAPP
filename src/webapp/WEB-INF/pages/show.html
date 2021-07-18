@@ -12,6 +12,9 @@
 <a th:text ="${user.getName()}">VALUE</a>
 <a>Surname: </a>
 <a th:text = "${user.getSurName()}">VALUE</a>
+    <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+        <input type="submit" value="Delete"/>
+    </form>
 </div>
 </body>
 </html>
