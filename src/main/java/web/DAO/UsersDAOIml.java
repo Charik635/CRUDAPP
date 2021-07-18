@@ -24,6 +24,8 @@ public class UsersDAOIml implements UserDAO {
         User userToBeUpdated = getUserById(id);
         userToBeUpdated.setName(updatedUser.getName());
         userToBeUpdated.setSurName(updatedUser.getSurName());
+        userToBeUpdated.setEmail(updatedUser.getEmail());
+        userToBeUpdated.setAge(updatedUser.getAge());
     }
 
 

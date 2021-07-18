@@ -15,7 +15,10 @@ public class User {
     private String name;
     @Column(name = "surname")
     private String surName;
-
+    @Column(name = "age")
+    private String age;
+    @Column(name="email")
+    private String email;
     public int getId() {
         return id;
     }
@@ -40,9 +43,28 @@ public class User {
         this.surName = surName;
     }
 
-    public User(String name, String surName) {
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public User(int id, String name, String surName, String age, String email) {
+        this.id = id;
         this.name = name;
         this.surName = surName;
+        this.age = age;
+        this.email = email;
     }
 
     public User() {
