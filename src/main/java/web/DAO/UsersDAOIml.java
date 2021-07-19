@@ -20,16 +20,6 @@ public class UsersDAOIml implements UserDAO {
     }
 
     @Override
-    public void updateUser(int id, User updatedUser) {
-        User userToBeUpdated = getUserById(id);
-        userToBeUpdated.setName(updatedUser.getName());
-        userToBeUpdated.setSurName(updatedUser.getSurName());
-        userToBeUpdated.setEmail(updatedUser.getEmail());
-        userToBeUpdated.setAge(updatedUser.getAge());
-    }
-
-
-    @Override
     public void removeUser(int id) {
         String sql = "DELETE FROM users WHERE id = " + id;
         entityManager.createNativeQuery(sql).executeUpdate();

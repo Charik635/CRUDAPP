@@ -1,18 +1,20 @@
 package web.model;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     @NotEmpty(message = "Имя не может быть пустым")
     @Size(min = 2, max = 30, message = "длина имени должна быть от 2 до 30 символов")
     private String name;
@@ -23,10 +25,14 @@ public class User {
     @Column(name = "age")
     @Min(value = 0, message = "Возраст должен быть не менее 0")
     private int age;
+
     @Column(name = "email")
     @Email(message = "Email не верный")
     @NotEmpty(message = "Поле не может быть пустым")
     private String email;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Role> roles;
 
     public int getId() {
         return id;
@@ -42,6 +48,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getSurName() {
@@ -68,8 +82,7 @@ public class User {
         this.email = email;
     }
 
-    public User(int id, String name, String surName, int age, String email) {
-        this.id = id;
+    public User(String name, String surName, int age, String email) {
         this.name = name;
         this.surName = surName;
         this.age = age;

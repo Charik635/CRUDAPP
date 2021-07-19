@@ -2,10 +2,14 @@ package web.service;
 
 import org.springframework.stereotype.Service;
 import web.DAO.UserDAO;
+import web.DAO.UsersDAOIml;
+import web.model.Role;
 import web.model.User;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Transactional
 
@@ -24,7 +28,11 @@ public class UserServiceIml implements UserService {
 
     @Override
     public void updateUser(int id, User updatedUser) {
-        usersDAO.updateUser(id, updatedUser);
+        User userToBeUpdated = getUserById(id);
+        userToBeUpdated.setName(updatedUser.getName());
+        userToBeUpdated.setSurName(updatedUser.getSurName());
+        userToBeUpdated.setEmail(updatedUser.getEmail());
+        userToBeUpdated.setAge(updatedUser.getAge());
     }
 
     @Override
@@ -41,4 +49,5 @@ public class UserServiceIml implements UserService {
     public List<User> listOfUser() {
         return usersDAO.listOfUser();
     }
+
 }
