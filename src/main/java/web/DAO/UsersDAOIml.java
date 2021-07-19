@@ -26,6 +26,7 @@ public class UsersDAOIml implements UserDAO {
 
     }
 
+
     @Override
     public User getUserById(int id) {
         TypedQuery<User> q = entityManager.createQuery("select u from User  u where u.id=:id", User.class);

@@ -48,6 +48,7 @@ public class UsersController {
         return "redirect:/users";
     }
 
+
     @GetMapping("/users/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.getUserById(id));

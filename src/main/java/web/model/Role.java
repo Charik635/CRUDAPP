@@ -14,6 +14,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
+
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private User user;
 

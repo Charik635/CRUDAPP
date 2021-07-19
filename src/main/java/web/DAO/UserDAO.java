@@ -10,7 +10,6 @@ public interface UserDAO {
     void addUser(User user);
 
 
-
     void removeUser(int id);
 
     User getUserById(int id);
