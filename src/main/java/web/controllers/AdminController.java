@@ -46,6 +46,21 @@ public class AdminController {
         userService.removeUser(id);
         return "redirect:/admin";
     }
+    @GetMapping("admin/newuser")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        return "new";
+    }
+
+    @PostMapping("/admin/create")
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "new";
+        }
+        userService.addUser(user);
+        return "redirect:/admin";
+    }
+
 
 
 
