@@ -21,31 +21,15 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "new";
-    }
-
-    @PostMapping("/users")
-    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "new";
-        }
-        userService.addUser(user);
-        return "redirect:/admin";
-    }
-
-
-
     @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
+
     @GetMapping("/user")
     public String UserHome(Model model, Principal principal) {
         User user = (User) userService.loadUserByUsername(principal.getName());
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "homepage";
     }
 

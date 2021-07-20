@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -15,5 +15,9 @@
     <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">Редактировать</a>
 </div>
     <a th:href="@{/admin/newuser}">Создать нового пользователя</a>
+
+<form action="/logout">
+    <button>Logout</button>
+</form>
 </body>
 </html>
