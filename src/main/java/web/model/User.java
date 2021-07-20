@@ -13,19 +13,23 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails  {
+public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "name", unique = true)
     @NotEmpty(message = "Имя не может быть пустым")
     @Size(min = 2, max = 30, message = "длина имени должна быть от 2 до 30 символов")
     private String name;
+
     @Column(name = "surname")
     @NotEmpty(message = "Фамилия не может быть пустым")
     @Size(min = 2, max = 30, message = "длина фамилии должна быть от 2 до 30 символов")
     private String surName;
+
     @Column(name = "age")
     @Min(value = 0, message = "Возраст должен быть не менее 0")
     private int age;
@@ -35,15 +39,16 @@ public class User implements UserDetails  {
     @NotEmpty(message = "Поле не может быть пустым")
     private String username;
 
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-    @Column(name="password")
+
+    @Column(name = "password")
     private String password;
 
     private Boolean isAdmin;
+
     private Boolean isUser;
 
     public Boolean getAdmin() {
@@ -65,6 +70,7 @@ public class User implements UserDetails  {
     public void takeRole(Role role) {
         roles.add(role);
     }
+
     public int getId() {
         return id;
     }
@@ -145,7 +151,6 @@ public class User implements UserDetails  {
     public String getPassword() {
         return password;
     }
-
 
 
     public void setPassword(String passWord) {
