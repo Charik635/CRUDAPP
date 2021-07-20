@@ -30,7 +30,13 @@ public class UserServiceIml implements UserService, UserDetailsService {
 
     @Override
     public void addUser(User user) {
-
+        if(user.getAdmin())
+        {
+        user.takeRole(roleDAO.getUserById(1L));
+        }
+        if(user.getUser()){
+            user.takeRole(roleDAO.getUserById(2L));
+        }
         usersDAO.addUser(user);
     }
 
@@ -39,7 +45,7 @@ public class UserServiceIml implements UserService, UserDetailsService {
         User userToBeUpdated = getUserById(id);
         userToBeUpdated.setName(updatedUser.getName());
         userToBeUpdated.setSurName(updatedUser.getSurName());
-        userToBeUpdated.setEmail(updatedUser.getEmail());
+        userToBeUpdated.setUsername(updatedUser.getUsername());
         userToBeUpdated.setAge(updatedUser.getAge());
 
     }
@@ -61,15 +67,7 @@ public class UserServiceIml implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User usr = usersDAO.getUserByEmail(s);
-        if(usr == null ) {
-            throw new UsernameNotFoundException("username not found");
-        }
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : usr.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
-        }
-        return new org.springframework.security.core.userdetails.User(usr.getUsername(), usr.getPassword(),
-                grantedAuthorities);
+        return  usersDAO.getUserByEmail(s);
+
     }
 }

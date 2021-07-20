@@ -1,12 +1,13 @@
 package web.model;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -29,18 +30,41 @@ public class User implements UserDetails  {
     @Min(value = 0, message = "Возраст должен быть не менее 0")
     private int age;
 
-    @Column(name = "email")
+    @Column(name = "username")
     @Email(message = "Email не верный")
     @NotEmpty(message = "Поле не может быть пустым")
-    private String email;
+    private String username;
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
     @Column(name="password")
-    private String passWord;
+    private String password;
+
+    private Boolean isAdmin;
+    private Boolean isUser;
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+    public Boolean getUser() {
+        return isUser;
+    }
+
+    public void setUser(Boolean user) {
+        isUser = user;
+    }
+
+    public void takeRole(Role role) {
+        roles.add(role);
+    }
     public int getId() {
         return id;
     }
@@ -82,34 +106,34 @@ public class User implements UserDetails  {
         this.age = age;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
-    public User(int id, String name, String surName, int age, String email, String passWord) {
+    public User(int id, String name, String surName, int age, String username, String passWord) {
         this.id = id;
         this.name = name;
         this.surName = surName;
         this.age = age;
-        this.email = email;
-        this.passWord = passWord;
+        this.username = username;
+        this.password = passWord;
     }
 
     public User() {
     }
 
-    public User(int id, String name, String surName, int age, String email, Set<Role> roles, String passWord) {
+    public User(int id, String name, String surName, int age, String username, Set<Role> roles, String passWord) {
         this.id = id;
         this.name = name;
         this.surName = surName;
         this.age = age;
-        this.email = email;
+        this.username = username;
         this.roles = roles;
-        this.passWord = passWord;
+        this.password = passWord;
     }
 
     @Override
@@ -119,16 +143,13 @@ public class User implements UserDetails  {
 
     @Override
     public String getPassword() {
-        return passWord;
+        return password;
     }
 
-    @Override
-    public String getUsername() {
-        return email;
-    }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+
+    public void setPassword(String passWord) {
+        this.password = passWord;
     }
 
     @Override
