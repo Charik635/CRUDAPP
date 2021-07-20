@@ -1,3 +1,4 @@
+
 package web.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import web.config.handler.LoginSuccessHandler;
 import web.service.UserServiceIml;
+
 
 @Configuration
 @EnableWebSecurity
@@ -69,6 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // делаем страницу регистрации недоступной для авторизированных пользователей
                 .authorizeRequests()
                 //страницы аутентификаци доступна всем
+                .antMatchers("/login").anonymous()
+                .antMatchers("/users/**").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 // защищенные URL
                 .antMatchers("/user/**").access("hasAnyRole('USER', 'ADMIN')")
@@ -80,3 +83,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
+
+

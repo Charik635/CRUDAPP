@@ -1,11 +1,12 @@
 package web.service;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import web.DAO.RoleDAO;
 import web.DAO.UserDAO;
 import web.model.Role;
 import web.model.User;
@@ -20,13 +21,16 @@ import java.util.Set;
 @Service
 public class UserServiceIml implements UserService, UserDetailsService {
     private UserDAO usersDAO;
-
-    public UserServiceIml(UserDAO usersDAO) {
+    private RoleDAO roleDAO;
+@Autowired
+    public UserServiceIml(UserDAO usersDAO, RoleDAO roleDAO) {
         this.usersDAO = usersDAO;
+        this.roleDAO = roleDAO;
     }
 
     @Override
     public void addUser(User user) {
+
         usersDAO.addUser(user);
     }
 
@@ -63,7 +67,7 @@ public class UserServiceIml implements UserService, UserDetailsService {
         }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (Role role : usr.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole())  );
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
         }
         return new org.springframework.security.core.userdetails.User(usr.getUsername(), usr.getPassword(),
                 grantedAuthorities);

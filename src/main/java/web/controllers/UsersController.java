@@ -20,10 +20,6 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-
-    turn "show";
-    }
-
     @GetMapping("/users/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
@@ -39,27 +35,6 @@ public class UsersController {
         return "redirect:/users";
     }
 
-
-    @GetMapping("/users/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "edit";
-    }
-
-    @PatchMapping("/users/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @PathVariable("id") int id) {
-        if (bindingResult.hasErrors()) {
-            return "edit";
-        }
-        userService.updateUser(id, user);
-        return "redirect:/users";
-    }
-
-    @DeleteMapping("/users/{id}")
-    public String delete(@PathVariable("id") int id) {
-        userService.removeUser(id);
-        return "redirect:/users";
-    }
     @RequestMapping(value = "hello", method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         List<String> messages = new ArrayList<>();

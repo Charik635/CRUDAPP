@@ -15,7 +15,7 @@ import java.util.Set;
 public class User implements UserDetails  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private int id;
     @Column(name = "name", unique = true)
     @NotEmpty(message = "Имя не может быть пустым")
@@ -34,11 +34,12 @@ public class User implements UserDetails  {
     @NotEmpty(message = "Поле не может быть пустым")
     private String email;
 
-    @Transient
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    @Column(name="password")
     private String passWord;
     public int getId() {
         return id;
@@ -89,11 +90,13 @@ public class User implements UserDetails  {
         this.email = email;
     }
 
-    public User(String name, String surName, int age, String email) {
+    public User(int id, String name, String surName, int age, String email, String passWord) {
+        this.id = id;
         this.name = name;
         this.surName = surName;
         this.age = age;
         this.email = email;
+        this.passWord = passWord;
     }
 
     public User() {
@@ -122,6 +125,10 @@ public class User implements UserDetails  {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
     @Override
