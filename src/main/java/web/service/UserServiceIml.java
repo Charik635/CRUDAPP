@@ -1,8 +1,12 @@
 package web.service;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import web.DAO.UserDAO;
-import web.DAO.UsersDAOIml;
 import web.model.Role;
 import web.model.User;
 
@@ -14,7 +18,7 @@ import java.util.Set;
 @Transactional
 
 @Service
-public class UserServiceIml implements UserService {
+public class UserServiceIml implements UserService, UserDetailsService {
     private UserDAO usersDAO;
 
     public UserServiceIml(UserDAO usersDAO) {
@@ -51,4 +55,17 @@ public class UserServiceIml implements UserService {
         return usersDAO.listOfUser();
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User usr = usersDAO.getUserByEmail(s);
+        if(usr == null ) {
+            throw new UsernameNotFoundException("username not found");
+        }
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        for (Role role : usr.getRoles()) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole())  );
+        }
+        return new org.springframework.security.core.userdetails.User(usr.getUsername(), usr.getPassword(),
+                grantedAuthorities);
+    }
 }

@@ -13,6 +13,7 @@ public interface UserDAO {
     void removeUser(int id);
 
     User getUserById(int id);
+    User getUserByEmail(String email);
 
     List<User> listOfUser();
 }

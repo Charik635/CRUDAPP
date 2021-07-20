@@ -35,6 +35,13 @@ public class UsersDAOIml implements UserDAO {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        TypedQuery<User> q = entityManager.createQuery("select u from User  u where u.email=:email", User.class);
+        q.setParameter("email", email);
+        return q.getResultList().stream().findAny().orElse(null);
+    }
+
+    @Override
     public List<User> listOfUser() {
         List<User> s = entityManager.createQuery("select u from User u", User.class).getResultList();
         return s;
