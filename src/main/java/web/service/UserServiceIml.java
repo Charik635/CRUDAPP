@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import web.DAO.RoleDAO;
 import web.DAO.UserDAO;
 import web.model.User;
+
 import javax.transaction.Transactional;
 import java.util.List;
-
 
 @Transactional
 
@@ -42,6 +42,7 @@ public class UserServiceIml implements UserService, UserDetailsService {
         userToBeUpdated.setSurName(updatedUser.getSurName());
         userToBeUpdated.setUsername(updatedUser.getUsername());
         userToBeUpdated.setAge(updatedUser.getAge());
+        userToBeUpdated.setPassword(updatedUser.getPassword());
 
     }
 

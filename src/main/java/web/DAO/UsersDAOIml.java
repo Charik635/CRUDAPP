@@ -46,6 +46,5 @@ public class UsersDAOIml implements UserDAO {
     public List<User> listOfUser() {
         List<User> s = entityManager.createQuery("select u from User u", User.class).getResultList();
         return s;
-
     }
 }

@@ -22,6 +22,10 @@
     <input type="text" th:field="*{age}" id="age"/>
     <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Ошибка возраста</div>
     <br/>
+    <label for="password">Введите пароль</label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br/>
+
     <input type="submit" value="Изменить!">
 
 </form>
