@@ -22,9 +22,12 @@ public class UsersDAOIml implements UserDAO {
 
     @Override
     public void removeUser(int id) {
-        String sql = "DELETE FROM users WHERE id = " + id;
-        entityManager.createNativeQuery(sql).executeUpdate();
-
+        Query query = entityManager.createNativeQuery("delete from user_role where id=:id",User.class);
+        Query query1 = entityManager.createNativeQuery("DELETE FROM users WHERE id = :id",User.class);
+        query.setParameter("id",id);
+        query1.setParameter("id",id);
+        query.executeUpdate();
+        query1.executeUpdate();
     }
 
 
