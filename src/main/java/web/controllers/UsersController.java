@@ -14,11 +14,6 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
-    }
-
     @GetMapping("/user")
     public String UserHome(Model model, Principal principal) {
         User user = (User) userService.loadUserByUsername(principal.getName());
