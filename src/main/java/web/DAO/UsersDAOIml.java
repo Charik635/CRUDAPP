@@ -15,16 +15,15 @@ public class UsersDAOIml implements UserDAO {
 
     @Override
     public void addUser(User user) {
-
         entityManager.persist(user);
-        entityManager.close();
+
     }
 
     @Override
     public void removeUser(int id) {
         entityManager.remove(getUserById(id));
         entityManager.flush();
-        entityManager.clear();
+
     }
 
 
